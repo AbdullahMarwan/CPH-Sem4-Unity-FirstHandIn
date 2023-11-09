@@ -19,6 +19,7 @@ public class FloatyMcStinky : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space)) {
             rigidbody.AddForce(Vector3.up * jumpForce);
         }
+        //
         
     }
 }
