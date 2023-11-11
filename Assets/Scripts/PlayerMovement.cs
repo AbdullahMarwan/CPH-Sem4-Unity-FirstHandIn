@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -7,11 +8,18 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Rigidbody rigidbody;
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] private float forwardForce = 10f;
-    [SerializeField] private float damping = 0.5f; // Adjust the damping factor as needed
+    [SerializeField] private float damping = 0.5f;
+    [SerializeField] private float maxJumps = 2;
+    private float amountOfJumps;
+
+    [SerializeField] Transform groundCheck;
+    [SerializeField] LayerMask ground;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        amountOfJumps = maxJumps;
         rigidbody = GetComponent<Rigidbody>();
         // Freeze rotation on all axes
         rigidbody.freezeRotation = true;
@@ -20,9 +28,15 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && amountOfJumps > 0)
         {
             rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            amountOfJumps --;
+        }
+
+        if (IsGrounded())
+        {
+            amountOfJumps = maxJumps;
         }
 
         float horizontalInput = Input.GetAxis("Horizontal");
@@ -36,4 +50,10 @@ public class PlayerMovement : MonoBehaviour
         Vector3 dampingForce = -rigidbody.velocity * damping;
         rigidbody.AddForce(dampingForce);
     }
+
+
+    bool IsGrounded(){
+        return Physics.CheckSphere(groundCheck.position, 0.1f, ground);
+    }
+
 }
