@@ -216,10 +216,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidbody: {fileID: 0}
-  jumpForce: 10
+  jumpForce: 5
   forwardForce: 10
   damping: 0.5
-  maxJumps: 2
+  maxJumps: 1
   groundCheck: {fileID: 3976189698427045773}
   ground:
     serializedVersion: 2

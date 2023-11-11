@@ -8,7 +8,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Rigidbody rigidbody;
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] private float forwardForce = 10f;
-    [SerializeField] private float damping = 0.5f;
     [SerializeField] private float maxJumps = 2;
     private float amountOfJumps;
 
@@ -28,9 +27,15 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+
+        rigidbody.velocity = new Vector3(horizontalInput * forwardForce, rigidbody.velocity.y, verticalInput * forwardForce);
+
+
         if (Input.GetKeyDown(KeyCode.Space) && amountOfJumps > 0)
         {
-            rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            rigidbody.velocity = new Vector3(rigidbody.velocity.x, jumpForce, rigidbody.velocity.z);
             amountOfJumps --;
         }
 
@@ -39,18 +44,7 @@ public class PlayerMovement : MonoBehaviour
             amountOfJumps = maxJumps;
         }
 
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-
-        Vector3 moveDirection = new Vector3(horizontalInput, 0f, verticalInput).normalized;
-
-        rigidbody.AddForce(moveDirection * forwardForce);
-
-        // Apply damping to reduce velocity when no input is given
-        Vector3 dampingForce = -rigidbody.velocity * damping;
-        rigidbody.AddForce(dampingForce);
     }
-
 
     bool IsGrounded(){
         return Physics.CheckSphere(groundCheck.position, 0.1f, ground);

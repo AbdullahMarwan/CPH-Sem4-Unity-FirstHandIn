@@ -354,11 +354,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3618770103667712921, guid: a6594d9dec3d84f73b7b0dd35f52195f, type: 3}
       propertyPath: maxJumps
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3618770103667712921, guid: a6594d9dec3d84f73b7b0dd35f52195f, type: 3}
       propertyPath: jumpForce
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3618770103667712921, guid: a6594d9dec3d84f73b7b0dd35f52195f, type: 3}
       propertyPath: groundCheck
