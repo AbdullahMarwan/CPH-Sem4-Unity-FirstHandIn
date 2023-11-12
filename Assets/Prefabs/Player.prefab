@@ -223,6 +223,9 @@ MonoBehaviour:
   ground:
     serializedVersion: 2
     m_Bits: 64
+  lava:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!54 &4873009301028937197
 Rigidbody:
   m_ObjectHideFlags: 0
